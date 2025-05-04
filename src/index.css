@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================
+   BASE: Variabel & Global Styles
+================================ */
+@layer base {
+  :root {
+    --primary: #01080c;
+    --secondary: #000000;
+    --accent: #67c3eb;
+    --background: #ffffff;
+    --foreground: #808080;
+    --header-bg: #3d4249;
+    --header-text: #f9fafb;
+    --header-hover: #38bdf8;
+    --header-button-bg: #1d4ed8;
+
+    --admin-title-color: #1e293b; /* biru gelap slate */
+    --admin-title-size: 1.5rem; /* 24px */
+    --admin-title-weight: 600;
+  }
+  
+  .admin-title {
+    color: var(--admin-title-color);
+    font-size: var(--admin-title-size);
+    font-weight: var(--admin-title-weight);
+    margin-bottom: 1.5rem;
+  }
+  
+  .admin-subtitle {
+    color: var(--admin-title-color);
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+}
+
+html {
+  scroll-padding-top: 64px;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* ================================
+   COMPONENTS: Reusable Components
+================================ */
+@layer components {
+
+  /* ==== Warna Teks dan Background ==== */
+  .text-header-text {
+    color: var(--header-text);
+  }
+
+  .text-accent {
+    color: var(--accent);
+  }
+
+  .bg-accent {
+    background-color: var(--accent);
+  }
+
+  .text-foreground {
+    color: var(--foreground);
+  }
+
+  .border-secondary {
+    border-color: var(--secondary);
+  }
+
+  .bg-hover {
+    background-color: var(--header-hover);
+  }
+
+  /* ==== Hero Section ==== */
+  .hero-column {
+    background-color: var(--header-bg);
+    opacity: 0.85;
+    color: var(--header-text);
+  }
+
+  .icon-color {
+    color: var(--accent);
+  }
+
+  .text-description {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  .glow {
+    box-shadow: 0 0 25px rgba(14, 165, 233, 0.6);
+  }
+
+/* ========================
+     Blog Styling
+  ======================== */
+
+  #blog .container .grid .rounded-lg img {
+    border: none;
+  }
+  
+  #blog .container .grid .rounded-lg {
+    border: 1px solid #000; /* Border untuk artikel */
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  #blog .container .grid .rounded-lg:hover {
+    border-color: #3490dc; /* Border berubah saat hover */
+  }
+  
+  #blog .container .grid .rounded-lg h3 {
+    color: #111827; /* Judul berwarna hitam */
+    transition: color 0.3s ease-in-out;
+  }
+  
+  #blog .container .grid .rounded-lg h3:hover {
+    color: #1d4ed8; /* Warna saat hover */
+  }
+  
+  #blog .container p {
+    color: #6b7280;
+  }
+  
+  #blog .container .grid .rounded-lg .text-slate-400 {
+    color: #4b5563;
+  }
+  
+  #blog .container .grid .rounded-lg .text-slate-500 {
+    color: #6b7280;
+  }
+  
+  #blog .container .grid .rounded-lg button {
+    color: #3490dc;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  #blog .container .grid .rounded-lg button:hover {
+    color: #1d4ed8;
+  }
+  
+  /* All Posts */
+  
+  /* Styling untuk AllPosts */
+  #allposts .container .grid .rounded-lg {
+    border: 2px solid #000;  /* Menambahkan border secara eksplisit */
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  #allposts .container .grid .rounded-lg:hover {
+    border-color: #3490dc;  /* Border berubah saat hover */
+  }
+  
+  #allposts .container .grid .rounded-lg img {
+    border: none;  /* Pastikan tidak ada border di gambar */
+  }
+  
+  #allposts .container .grid .rounded-lg h3 {
+    color: #111827; /* Warna judul hitam */
+    transition: color 0.3s ease-in-out;
+  }
+  
+  #allposts .container .grid .rounded-lg h3:hover {
+    color: #1d4ed8;
+  }
+  
+  #allposts .container p {
+    color: #6b7280;
+  }
+  
+  #allposts .container .grid .rounded-lg .text-slate-400 {
+    color: #4b5563;
+  }
+  
+  #allposts .container .grid .rounded-lg .text-slate-500 {
+    color: #6b7280;
+  }
+  
+  #allposts .container .grid .rounded-lg button {
+    color: #3490dc;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  #allposts .container .grid .rounded-lg button:hover {
+    color: #1d4ed8;
+  }
+}
+
+/* ========================
+     Login Page Styling
+  ======================== */
+
+#login-section {
+  background-color: #e8ebf3;
+}
+
+#login-form {
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input,
+textarea {
+  border-color: #ddd;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4c9f70;
+  box-shadow: 0 0 5px rgba(76, 159, 112, 0.5);
+}
+
+.btn-login {
+  background-color: var(--header-button-bg);
+  color: var(--header-text);
+}
+
+.btn-login:hover {
+  background-color: var(--header-hover);
+}
+
+.btn-login:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 159, 112, 0.4);
+}
+
+button:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+.text-error,
+.text-red-500 {
+  color: #f56565;
+}
