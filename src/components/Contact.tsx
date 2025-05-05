@@ -87,7 +87,7 @@ const Contact = () => {
               <h3 className="text-xl font-bold text-[var(--accent)]">Contact Information</h3>
               <div className="space-y-2">
                 {[
-                  { icon: Phone, text: '+62 858-659-3347' },
+                  { icon: Phone, text: '+62 856-4016-7388' },
                   { icon: Mail, text: 'contact@rumaksa.com' },
                   { icon: MapPin, text: 'Salatiga City, Central Java 50732, Indonesia' },
                 ].map((item, index) => (
