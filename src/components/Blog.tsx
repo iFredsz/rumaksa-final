@@ -112,7 +112,7 @@ const Blog = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-2"
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+          <h2 className="text-2xl md:text-3xl font-bold mb-10 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
             Latest Insights
           </h2>
           <p className="text-description max-w-2xl mx-auto mb-4">
@@ -191,13 +191,16 @@ const Blog = () => {
         </div>
 
         
-        <div className="flex justify-center mt-4 space-x-4 mb-12">
-  <Link to="/all-posts">
-    <button className="px-4 py-1 text-sm bg-slate-700 text-white rounded hover:bg-slate-600">
-      Show All Posts
-    </button>
-  </Link>
-</div>
+        {posts.length > 3 && (
+  <div className="flex justify-center mt-4 space-x-4 mb-12">
+    <Link to="/all-posts">
+      <button className="px-4 py-1 text-sm bg-slate-700 text-white rounded hover:bg-slate-600">
+        Show All Posts
+      </button>
+    </Link>
+  </div>
+)}
+
 
       </div>
     </section>

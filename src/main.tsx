@@ -21,7 +21,7 @@ import 'tinymce/plugins/media';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/help';
 
-import { StrictMode } from 'react';
+import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import AppWrapper from './App.tsx';
 

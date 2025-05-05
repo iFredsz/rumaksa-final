@@ -26,11 +26,12 @@ const About = () => {
       title: "Organization Structure",
       content: (
         <ul className="list-disc ml-5 space-y-1">
-          <li>Chief Executive Officer</li>
-          <li>Cyber Security Division</li>
-          <li>Digital Business Division</li>
-          <li>Multimedia & Creative Division</li>
-          <li>Support & Customer Service Team</li>
+        <li>Director : John Thomas Edward M, BA., S.IP., MA</li>
+        <li>Chief Executive Officer : Adit, Alfian, Arya</li>
+        <li>Cyber Security Division</li>
+        <li>Digital Business Division</li>
+        <li>Multimedia & Creative Division</li>
+        <li>Support & Customer Service Team</li>
         </ul>
       ),
     },

@@ -8,6 +8,7 @@ interface HeaderProps {
   homeRef: React.RefObject<HTMLElement>;
   aboutRef: React.RefObject<HTMLElement>;
   servicesRef: React.RefObject<HTMLElement>;
+  coursesRef: React.RefObject<HTMLElement>; // ✅ Ditambahkan
   blogRef: React.RefObject<HTMLElement>;
   contactRef: React.RefObject<HTMLElement>;
   partnerRef: React.RefObject<HTMLElement>;
@@ -19,6 +20,7 @@ const Header: React.FC<HeaderProps> = ({
   homeRef,
   aboutRef,
   servicesRef,
+  coursesRef, // ✅ Ditambahkan
   blogRef,
   contactRef,
   partnerRef,
@@ -34,6 +36,7 @@ const Header: React.FC<HeaderProps> = ({
     { name: 'Home', id: '/', ref: homeRef },
     { name: 'About', id: 'about', ref: aboutRef },
     { name: 'Services', id: 'services', ref: servicesRef },
+    { name: 'Courses', id: 'courses', ref: coursesRef }, // ✅ Ditambahkan
     { name: 'Partner', id: 'partner', ref: partnerRef },
     { name: 'Blog', id: 'blog', ref: blogRef },
     { name: 'Contact', id: 'contact', ref: contactRef }
@@ -66,12 +69,11 @@ const Header: React.FC<HeaderProps> = ({
   }, [pathname, hash, scrollSection]);
 
   return (
-<motion.header
-  className="fixed top-0 z-50 w-full shadow-lg h-[56px] md:h-[64px] bg-[var(--header-bg)]"
-  initial={{ y: -100 }}
-  animate={{ y: 0 }}
->
-
+    <motion.header
+      className="fixed top-0 z-50 w-full shadow-lg h-[56px] md:h-[64px] bg-[var(--header-bg)]"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+    >
       <div className="container mx-auto px-4 py-2 flex items-center justify-between relative">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2 z-10">
@@ -101,29 +103,24 @@ const Header: React.FC<HeaderProps> = ({
           ))}
         </ul>
 
-        {/* Admin/Login Button (kanan atas) */}
+        {/* Admin/Login Button */}
         <motion.div
           whileHover={{ scale: 1.05 }}
           style={{ right: '2rem', marginRight: '20px' }}
           className="px-3 py-1 hover:bg-[var(--header-button-bg)] rounded-full text-[var(--header-text)] font-medium fixed top-4 text-xs md:text-base"
         >
-        <button
-          onClick={() => {
-            if (loggedIn) {
-              // Kalau sekarang di '/admin', pindah ke '/'
-              // Kalau sedang tidak di '/admin', pindah ke '/admin'
-              navigate(pathname === '/admin' ? '/' : '/admin');
-            } else if (pathname !== '/') {
-              navigate('/');
-            }
-            // Kalau user biasa dan sudah di '/', tidak lakukan apa-apa
-          }}
-          className="flex items-center focus:outline-none font-sans"
-        >
-          {loggedIn ? 'Hi, Admin' : 'Hi there!'}
-        </button>
-
-
+          <button
+            onClick={() => {
+              if (loggedIn) {
+                navigate(pathname === '/admin' ? '/' : '/admin');
+              } else if (pathname !== '/') {
+                navigate('/');
+              }
+            }}
+            className="flex items-center focus:outline-none font-sans"
+          >
+            {loggedIn ? 'Hi, Admin' : 'Hi there!'}
+          </button>
         </motion.div>
 
         {/* Hamburger Button */}
@@ -155,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({
                 key={item.name}
                 to={item.id === '/' ? '/' : `/#${item.id}`}
                 className="text-base text-black font-semibold"
-                style={{ textShadow: '1px 1px 2px white' }} // Menambahkan efek stroke hitam pada teks
+                style={{ textShadow: '1px 1px 2px white' }}
                 onClick={() => handleMenuItemClick(item)}
               >
                 {item.name}

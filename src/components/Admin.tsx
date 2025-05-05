@@ -1,7 +1,5 @@
 import { useState, useEffect, FC, ReactNode } from 'react';
 import { motion } from 'framer-motion';
-
-
 import { db } from '../firebase';
 import {
   collection,
@@ -18,12 +16,13 @@ import {
 } from 'firebase/firestore';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { ToastContainer, toast, Id } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Editor from './Editor';
+
 export interface AdminProps {
   onLogout: (value: boolean) => void;
 }
-
 
 const stripHtml = (html: string): string => {
   const div = document.createElement('div');
@@ -40,23 +39,19 @@ const isValidUrl = (url: string): boolean => {
   }
 };
 
-
 const Admin: FC<AdminProps> = ({ onLogout }): ReactNode => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [blogs, setBlogs] = useState<DocumentData[]>([]);
-  const [title, setTitle] = useState(''); 
-  const [imageUrl, setImageUrl] = useState(''); 
-  const [author, setAuthor] = useState(''); 
-  const [editorContent, setEditorContent] = useState(''); 
+  const [title, setTitle] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [author, setAuthor] = useState('');
+  const [editorContent, setEditorContent] = useState('');
   const [editId, setEditId] = useState<string | null>(null);
-
 
   const auth = getAuth();
   const navigate = useNavigate();
 
-  
   const resetForm = () => {
     setTitle('');
     setAuthor('');
@@ -72,9 +67,9 @@ const Admin: FC<AdminProps> = ({ onLogout }): ReactNode => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       const isLoggedIn = !!user;
-      setLoggedIn(isLoggedIn)
-          if (!isLoggedIn) navigate('/login');
-      });
+      setLoggedIn(isLoggedIn);
+      if (!isLoggedIn) navigate('/login');
+    });
     return () => unsubscribe();
   }, [auth, navigate]);
 
@@ -92,7 +87,7 @@ const Admin: FC<AdminProps> = ({ onLogout }): ReactNode => {
       const querySnapshot = await getDocs(q);
       const fetched = querySnapshot.docs.map((doc) => {
         const data = doc.data();
-        const date = data.date instanceof Timestamp 
+        const date = data.date instanceof Timestamp
           ? data.date.toDate().toLocaleDateString('en-GB')
           : data.date;
 
@@ -183,169 +178,198 @@ const Admin: FC<AdminProps> = ({ onLogout }): ReactNode => {
   };
 
   const handleDeleteBlog = async (id: string): Promise<void> => {
-      toast((t) => (
-      <div className="flex items-center justify-between" key={t.id}>
-        <span>Yakin ingin menghapus blog ini?</span>
-        <div className="flex gap-2">
-          <button
-            onClick={async () => {
-              setLoading(true);
-
-              try {
-                await deleteDoc(doc(db, 'blogs', id));
-                toast.success('Blog berhasil dihapus');
-                fetchBlogs();
-              } catch (error) {
-                console.error('Delete blog error:', error);
-                toast.error('Gagal menghapus blog');
-              } finally {
-                setLoading(false);
-                toast.dismiss(t.id);  // Close the toast after completion
-              }
-            }}
-            className="bg-red-500 text-white px-3 py-1 rounded"
-          >
-            Yes
-          </button>
-          <button
-            onClick={() => toast.dismiss(t.id)} // Close the toast without doing anything
-            className="bg-gray-500 text-white px-3 py-1 rounded"
-          >
-            No
-          </button>  
+    const toastId: Id = toast.info(
+      ({ closeToast }) => (
+        <div>
+          <p className="text-sm">Yakin ingin menghapus blog ini?</p>
+          <div className="mt-2 flex gap-2">
+            <button
+              onClick={async () => {
+                setLoading(true);
+                try {
+                  await deleteDoc(doc(db, 'blogs', id));
+                  toast.success('Blog berhasil dihapus');
+                  fetchBlogs();
+                } catch (error) {
+                  console.error('Delete blog error:', error);
+                  toast.error('Gagal menghapus blog');
+                } finally {
+                  setLoading(false);
+                  toast.dismiss(toastId);
+                  closeToast && closeToast();
+                }
+              }}
+              className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => {
+                toast.dismiss(toastId);
+                closeToast && closeToast();
+              }}
+              className="px-3 py-1 text-sm bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+            >
+              No
+            </button>
+          </div>
         </div>
-      </div> 
-      ));
+      ),
+      {
+        autoClose: false,
+        closeOnClick: false,
+        closeButton: false,
+      }
+    );
   };
   
   
-  
+
   if (!loggedIn) return <div>Loading...</div>;
 
   return (
-    <motion.div className="pt-20 px-4 md:px-10 pb-10">
-      <h2 className="admin-title">Add/Edit Blog</h2>
-
-  
-      {/* Form Input */}
-      <div className="grid md:grid-cols-3 gap-4 mb-4">
-      <div>
-        <label className="admin-subtitle">Title</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-          className="border p-3 w-full text-black"
-        />
-      </div>
-
-      <div>
-        <label className="admin-subtitle">Author</label>
-        <input
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          placeholder="Author"
-          className="border p-3 w-full text-black"
-        />
-      </div>
-
-      <div>
-        <label className="admin-subtitle">Image URL</label>
-        <input
-          type="text"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          placeholder="Image URL"
-          className="border p-3 w-full text-black"
-        />
-      </div>
-
-      <div className="md:col-span-3 border text-black">
-        <Editor value={editorContent} onEditorChange={setEditorContent} />
-      </div>
-    </div>
-
-  
-      {/* Tombol Aksi */}
-      <div className="flex flex-wrap gap-3 mb-6">
-        {editId ? (
+    <>
+      <motion.div className="pt-20 px-4 md:px-10 pb-10">
+        <div className="mb-6">
           <button
-            onClick={handleSaveChange}
-            disabled={loading}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => navigate('/courses/manage')}
+            className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded"
           >
-            {loading ? 'Saving...' : 'Save Changes'}
+            Manage Course
           </button>
-        ) : (
+        </div>
+
+        <h2 className="admin-title">Add/Edit Blog</h2>
+        {/* Form Input */}
+        <div className="grid md:grid-cols-3 gap-4 mb-4">
+          <div>
+            <label className="admin-subtitle">Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Title"
+              className="border p-3 w-full text-black"
+            />
+          </div>
+
+          <div>
+            <label className="admin-subtitle">Author</label>
+            <input
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+              placeholder="Author"
+              className="border p-3 w-full text-black"
+            />
+          </div>
+
+          <div>
+            <label className="admin-subtitle">Image URL</label>
+            <input
+              type="text"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              placeholder="Image URL"
+              className="border p-3 w-full text-black"
+            />
+          </div>
+
+          <div className="md:col-span-3 border text-black">
+            <Editor value={editorContent} onEditorChange={setEditorContent} />
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-3 mb-6">
+          {editId ? (
+            <button
+              onClick={handleSaveChange}
+              disabled={loading}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              {loading ? 'Saving...' : 'Save Changes'}
+            </button>
+          ) : (
+            <button
+              onClick={handleAddBlog}
+              disabled={loading}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            >
+              {loading ? 'Adding...' : 'Add Blog'}
+            </button>
+          )}
           <button
-            onClick={handleAddBlog}
-            disabled={loading}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => onLogout(false)}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           >
-            {loading ? 'Adding...' : 'Add Blog'}
+            Logout
           </button>
-        )}
-        <button
-          onClick={() => onLogout(false)}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Logout
-        </button>
-      </div>
-  
-      {/* Tabel Blog */}
-      <h3 className="admin-subtitle">Existing Blogs</h3>
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white text-black border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200 text-left">
-              <th className="py-2 px-4 border">Title</th>
-              <th className="py-2 px-4 border">Author</th>
-              <th className="py-2 px-4 border">Date</th>
-              <th className="py-2 px-4 border">Content</th>
-              <th className="py-2 px-4 border">Image URL</th>
-              <th className="py-2 px-4 border">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {blogs.map((blog) => (
-              <tr key={blog.id} className="border-t">
-                <td className="py-2 px-4 border">{blog.title || '-'}</td>
-                <td className="py-2 px-4 border">{blog.author || '-'}</td>
-                <td className="py-2 px-4 border">{blog.date || '-'}</td>
-                <td className="py-2 px-4 border">
-                  {blog.content ? stripHtml(blog.content).slice(0, 80) + '...' : '-'}
-                </td>
-                <td className="py-2 px-4 border break-words max-w-[200px]">
-                  {blog.imageUrl?.length > 50
-                    ? blog.imageUrl.slice(0, 50) + '...'
-                    : blog.imageUrl || '-'}
-                </td>
-                <td className="py-2 px-4 border">
-                  <div className="flex gap-2 flex-wrap">
-                    <button
-                      onClick={() => handleEditBlog(blog)}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDeleteBlog(blog.id)}
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </td>
+        </div>
+
+        {/* Blog Table */}
+        <h3 className="admin-subtitle">Existing Blogs</h3>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white text-black border border-gray-300">
+            <thead>
+              <tr className="bg-gray-200 text-left">
+                <th className="py-2 px-4 border">Title</th>
+                <th className="py-2 px-4 border">Author</th>
+                <th className="py-2 px-4 border">Date</th>
+                <th className="py-2 px-4 border">Content</th>
+                <th className="py-2 px-4 border">Image URL</th>
+                <th className="py-2 px-4 border">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </motion.div>
+            </thead>
+            <tbody>
+              {blogs.map((blog) => (
+                <tr key={blog.id} className="border-t">
+                  <td className="py-2 px-4 border">{blog.title || '-'}</td>
+                  <td className="py-2 px-4 border">{blog.author || '-'}</td>
+                  <td className="py-2 px-4 border">{blog.date || '-'}</td>
+                  <td className="py-2 px-4 border">
+                    {blog.content ? stripHtml(blog.content).slice(0, 80) + '...' : '-'}
+                  </td>
+                  <td className="py-2 px-4 border break-words max-w-[200px]">
+                    {blog.imageUrl?.length > 50
+                      ? blog.imageUrl.slice(0, 50) + '...'
+                      : blog.imageUrl || '-'}
+                  </td>
+                  <td className="py-2 px-4 border">
+                    <div className="flex gap-2 flex-wrap">
+                      <button
+                        onClick={() => handleEditBlog(blog)}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteBlog(blog.id)}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </motion.div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
-  
-}; 
+};
 
 export default Admin;
+

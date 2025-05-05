@@ -74,7 +74,7 @@ const Services = () => {
         {
           icon: Palette,
           name: 'Creative Multimedia Solutions',
-          description: 'Creative solutions for your digital content'
+          description: 'Creative solutions for your digital needs'
         }
       ]
     }

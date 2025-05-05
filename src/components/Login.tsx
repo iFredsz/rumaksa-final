@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { loginWithEmailAndPassword } from '../firebase';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface LoginProps {
   onLogin: (value: boolean) => void;
