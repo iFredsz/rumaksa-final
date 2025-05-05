@@ -112,9 +112,9 @@ const Footer = () => {
 
         <div className="border-t border-slate-800 pt-4">
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-2">
-            <p className="text-slate-400 text-sm text-center md:text-left">
-            © 2024 RUMAKSA. Created by @fredsz_
-            </p>
+          <p className="text-center text-sm text-gray-500 mt-10">
+            © {new Date().getFullYear()} RUMAKSA. Created by <span className="font-semibold">@fredsz_</span>
+          </p>
           </div>
         </div>
       </div>
