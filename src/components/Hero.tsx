@@ -187,7 +187,7 @@ const Hero = () => {
           <Lock className="h-10 w-10 text-yellow-500" />
         </div>
         <h4 className="text-xl font-semibold mb-2">Security First</h4>
-        <p>99.9% threat detection rate ensuring maximum protection.</p>
+        <p>We guarantee maximum security on this website.</p>
       </div>
       {/* 24/7 Support */}
       <div className="bg-white text-primary p-6 rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
