@@ -71,7 +71,7 @@ const Footer = () => {
       <div className="bg-gray-800 pt-4 pb-4">
         <div className="flex justify-center items-center w-full">
           <p className="text-center text-sm text-gray-400">
-            © {new Date().getFullYear()} RUMAKSA. Allright reserved.
+            © {new Date().getFullYear()} RUMAKSA. All right reserved.
           </p>
         </div>
       </div>
