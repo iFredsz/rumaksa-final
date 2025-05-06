@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import rumaksaLogo from '../assets/rumaksalogo.png';
+import rumaksaLogo from '../assets/rumaksalogos.png';
 
 interface HeaderProps {
   loggedIn: boolean;
