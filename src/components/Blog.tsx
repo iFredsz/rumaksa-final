@@ -104,7 +104,7 @@ const Blog = () => {
   }, []);
 
   return (
-    <section id="blog" className="section-padding relative overflow-hidden pt-4 pb-0">
+    <section id="blog" className="section-padding relative overflow-hidden pt-16 pb-0">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

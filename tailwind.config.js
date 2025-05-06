@@ -4,6 +4,10 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        'gotham-rounded-bold': ['Gotham Rounded Bold', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+      },
       colors: {
         primary: 'var(--primary)',
         secondary: 'var(--secondary)',

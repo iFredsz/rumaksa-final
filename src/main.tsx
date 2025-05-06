@@ -1,4 +1,5 @@
 import './index.css';
+import "@fontsource/poppins/700.css"; // Bold
 import 'tinymce/tinymce';
 import 'tinymce/icons/default/icons';
 import 'tinymce/models/dom/model';

@@ -1,126 +1,141 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import rumaksaLogo from '../assets/rumaksalogos.png';
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs'; // Import ikon panah
 
 interface HeaderProps {
   loggedIn: boolean;
-  homeRef: React.RefObject<HTMLElement>;
-  aboutRef: React.RefObject<HTMLElement>;
-  servicesRef: React.RefObject<HTMLElement>;
-  coursesRef: React.RefObject<HTMLElement>; // ✅ Ditambahkan
-  blogRef: React.RefObject<HTMLElement>;
-  contactRef: React.RefObject<HTMLElement>;
-  partnerRef: React.RefObject<HTMLElement>;
-  scrollSection: (hash: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  loggedIn,
-  homeRef,
-  aboutRef,
-  servicesRef,
-  coursesRef, // ✅ Ditambahkan
-  blogRef,
-  contactRef,
-  partnerRef,
-  scrollSection
-}) => {
-  const { pathname, hash } = useLocation();
-  const firstRender = useRef(true);
+const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
+  const { pathname } = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const menuItems = [
-    { name: 'Home', id: '/', ref: homeRef },
-    { name: 'About', id: 'about', ref: aboutRef },
-    { name: 'Services', id: 'services', ref: servicesRef },
-    { name: 'Courses', id: 'courses', ref: coursesRef }, // ✅ Ditambahkan
-    { name: 'Partner', id: 'partner', ref: partnerRef },
-    { name: 'Blog', id: 'blog', ref: blogRef },
-    { name: 'Contact', id: 'contact', ref: contactRef }
+    { name: 'Home', path: '/' },
+    {
+      name: 'About',
+      path: '/about',
+      dropdown: ['Company', 'Our Vision & Mission', 'Organization Structure'],
+    },
+    {
+      name: 'Services',
+      path: '/services',
+      dropdown: ['Cyber Security', 'Digital Business', 'Multimedia'],
+    },
+    { name: 'Courses', path: '/courses' },
+    { name: 'Partner', path: '/partner' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleMenuItemClick = (item: any) => {
-    const newHash = item.id === '/' ? '' : `#${item.id}`;
-    if (pathname === '/') {
-      if (item.ref.current) {
-        item.ref.current.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      navigate(`/${newHash}`);
-    }
-    scrollSection(newHash);
+  const toggleDropdown = (menuName: string) => {
+    setOpenDropdown((prev) => (prev === menuName ? null : menuName));
+  };
+
+  const handleMenuItemClick = (path: string) => {
+    // Scroll ke atas setelah klik
+    window.scrollTo(0, 0);
+    navigate(path);
     setIsMenuOpen(false);
+    setOpenDropdown(null);
   };
 
   useEffect(() => {
-    if (!firstRender.current && pathname !== '/') {
-      setIsMenuOpen(false);
-    }
-    if (hash) {
-      scrollSection(hash);
-    }
-  }, [pathname, hash, scrollSection]);
+    setIsMenuOpen(false);
+    setOpenDropdown(null);
+    // Menangani scroll ke atas setelah navigasi menggunakan useEffect
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <motion.header
-      className="fixed top-0 z-50 w-full shadow-lg h-[56px] md:h-[64px] bg-[var(--header-bg)]"
+      className="font-gotham-rounded-bold fixed top-0 z-50 w-full shadow-lg h-[56px] md:h-[64px] bg-[var(--header-bg)]"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
     >
       <div className="container mx-auto px-4 py-2 flex items-center justify-between relative">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2 z-10">
-          <img src={rumaksaLogo} alt="Rumaksa Logo" className="w-6 h-6 md:w-8 md:h-8" />
+          <img src={rumaksaLogo} alt="Rumaksa Logo" className="w-12 h-12 md:w-10 md:h-10" />
           <div className="flex flex-col">
             <span className="text-lg md:text-xl font-bold text-[var(--header-text)]">RUMAKSA</span>
-            <p className="text-xs text-[var(--header-text)]">PT Rumah Karya Semesta</p>
+            <p className="text-xs text-primary">PT Rumah Karya Semesta</p>
           </div>
         </Link>
 
         {/* Menu Desktop */}
         <ul className="hidden md:flex items-center space-x-4 absolute left-1/2 transform -translate-x-1/2">
           {menuItems.map((item) => (
-            <motion.li
-              key={item.name}
-              whileHover={{ scale: 1.1 }}
-              className="hover:text-[var(--header-hover)] cursor-pointer text-[var(--header-text)]"
-            >
-              <Link
-                to={item.id === '/' ? '/' : `/#${item.id}`}
-                className="cursor-pointer"
-                onClick={() => handleMenuItemClick(item)}
-              >
-                {item.name}
-              </Link>
-            </motion.li>
+            <li key={item.name} className="relative text-primary">
+              {(item.name === 'About' || item.name === 'Services') && item.dropdown ? (
+                <>
+                  <button
+                    onClick={() => toggleDropdown(item.name)}
+                    className="flex items-center space-x-1 hover:text-[var(--header-hover)] cursor-pointer"
+                  >
+                    <span>{item.name}</span>
+                    <span>
+                      {openDropdown === item.name ? (
+                        <BsChevronUp className="text-sm" />
+                      ) : (
+                        <BsChevronDown className="text-sm" />
+                      )}
+                    </span>
+                  </button>
+
+                  {openDropdown === item.name && (
+                    <div className="absolute left-0 mt-2 w-48 bg-white shadow-md rounded-md z-50 py-2">
+                      {item.dropdown.map((subItem, idx) => (
+                        <Link
+                          key={idx}
+                          to={`${item.path}/${subItem.toLowerCase().replace(/ /g, '-')}`}
+                          className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
+                          onClick={() =>
+                            handleMenuItemClick(`${item.path}/${subItem.toLowerCase().replace(/ /g, '-')}`)
+                          }
+                        >
+                          {subItem}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link
+                  to={item.path}
+                  className="hover:text-[var(--header-hover)] cursor-pointer"
+                  onClick={() => handleMenuItemClick(item.path)}
+                >
+                  {item.name}
+                </Link>
+              )}
+            </li>
           ))}
         </ul>
 
         {/* Admin/Login Button */}
         <motion.div
-          whileHover={{ scale: 1.05 }}
           style={{ right: '2rem', marginRight: '20px' }}
-          className="px-3 py-1 hover:bg-[var(--header-button-bg)] rounded-full text-[var(--header-text)] font-medium fixed top-4 text-xs md:text-base"
+          className="px-3 py-1 rounded-full fixed top-4 text-xs md:text-base font-medium text-[var(--header-text)]"
         >
-          <button
-            onClick={() => {
-              if (loggedIn) {
-                navigate(pathname === '/admin' ? '/' : '/admin');
-              } else if (pathname !== '/') {
-                navigate('/');
-              }
-            }}
-            className="flex items-center focus:outline-none font-sans"
-          >
-            {loggedIn ? 'Hi, Admin' : 'Hi there!'}
-          </button>
+          {loggedIn ? (
+            <button
+              onClick={() => navigate(pathname === '/admin' ? '/' : '/admin')}
+              className="flex items-center focus:outline-none font-sans hover:bg-[var(--header-button-bg)] px-3 py-1 rounded-full cursor-pointer"
+            >
+              Hi, Admin
+            </button>
+          ) : (
+            <span className="font-sans">Hi there!</span>
+          )}
         </motion.div>
 
         {/* Hamburger Button */}
@@ -146,17 +161,52 @@ const Header: React.FC<HeaderProps> = ({
 
         {/* Menu Mobile */}
         {isMenuOpen && (
-          <div className="absolute top-16 right-0 w-40 backdrop-blur-sm flex flex-col space-y-4 p-4 rounded-lg">
+          <div className="absolute top-16 right-0 w-40 backdrop-blur-sm flex flex-col space-y-4 p-4 rounded-lg bg-white shadow-md font-gotham-rounded-bold">
             {menuItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.id === '/' ? '/' : `/#${item.id}`}
-                className="text-base text-black font-semibold"
-                style={{ textShadow: '1px 1px 2px white' }}
-                onClick={() => handleMenuItemClick(item)}
-              >
-                {item.name}
-              </Link>
+              <React.Fragment key={item.name}>
+                {(item.name === 'About' || item.name === 'Services') && item.dropdown ? (
+                  <div className="relative">
+                    <button
+                      onClick={() => toggleDropdown(item.name)}
+                      className="flex items-center space-x-1 text-base text-black font-semibold w-full text-left"
+                      style={{ textShadow: '1px 1px 2px white' }}
+                    >
+                      <span>{item.name}</span>
+                      <span>
+                        {openDropdown === item.name ? (
+                          <BsChevronUp className="text-sm" />
+                        ) : (
+                          <BsChevronDown className="text-sm" />
+                        )}
+                      </span>
+                    </button>
+                    {openDropdown === item.name && (
+                      <div className="ml-4 flex flex-col space-y-2 mt-2">
+                        {item.dropdown.map((subItem, idx) => (
+                          <Link
+                            key={idx}
+                            to={`${item.path}/${subItem.toLowerCase().replace(/ /g, '-')}`}
+                            className="text-sm text-gray-600"
+                            onClick={() =>
+                              handleMenuItemClick(`${item.path}/${subItem.toLowerCase().replace(/ /g, '-')}`)
+                            }
+                          >
+                            - {subItem}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={item.path}
+                    className="text-base text-black font-semibold w-full"
+                    onClick={() => handleMenuItemClick(item.path)}
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </React.Fragment>
             ))}
           </div>
         )}
