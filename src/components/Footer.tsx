@@ -45,10 +45,10 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-2 text-white">Follow Us</h4>
             <div className="flex justify-end space-x-4">
               {[
-                { icon: Facebook, href: 'https://www.facebook.com/ifredsz' },
-                { icon: Twitter, href: 'https://twitter.com/nih_zef' },
-                { icon: Linkedin, href: 'https://id.linkedin.com/in/fredsz' },
-                { icon: Instagram, href: 'https://www.instagram.com/fredsz_' }
+                { icon: Facebook, href: 'https://www.facebook.com/' },
+                { icon: Twitter, href: 'https://twitter.com/' },
+                { icon: Linkedin, href: 'https://id.linkedin.com/in/' },
+                { icon: Instagram, href: 'https://www.instagram.com/' }
               ].map((social, index) => (
                 <motion.a
                   key={index}
@@ -71,7 +71,7 @@ const Footer = () => {
       <div className="bg-gray-800 pt-4 pb-4">
         <div className="flex justify-center items-center w-full">
           <p className="text-center text-sm text-gray-400">
-            © {new Date().getFullYear()} RUMAKSA. Created by <span className="font-semibold">@fredsz_</span>
+            © {new Date().getFullYear()} RUMAKSA. Allright reserved.
           </p>
         </div>
       </div>
