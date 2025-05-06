@@ -86,7 +86,7 @@ const BlogDetail: React.FC = () => {
             <img
           src={post.imageUrl}
           alt={post.title}
-          className="w-full h-52 sm:h-60 md:h-64 object-cover mb-6 rounded-lg"
+          className="w-full h-[13rem] sm:h-[15rem] md:h-[17rem] object-cover mb-6 rounded-lg"
           loading="lazy"
 />
 

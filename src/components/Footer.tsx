@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
-import logo from '../assets/rumaksalogo.png';
+import logo from '../assets/rumaksalogos.png';
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Footer = () => {
