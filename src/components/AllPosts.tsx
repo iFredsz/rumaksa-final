@@ -52,7 +52,7 @@ const AllPosts = () => {
 
   return (
     <div className="container mx-auto px-2 pt-20 pb-10" id="allposts">
-<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+<h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
   All Posts
 </h2>
 

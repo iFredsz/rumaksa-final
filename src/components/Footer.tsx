@@ -38,33 +38,36 @@ const Footer = () => {
           </div>
 
       
-{/* Kolom 3: Follow Us */}
-<div className="space-y-4 text-left md:text-right md:ml-auto">
-  <h4 className="text-lg font-semibold mb-2 text-white">Follow Us</h4>
-  <div className="flex justify-start md:justify-end space-x-4">
-    {[
-      { icon: Facebook, href: 'https://www.facebook.com/' },
-      { icon: Twitter, href: 'https://twitter.com/' },
-      { icon: Linkedin, href: 'https://id.linkedin.com/in/' },
-      { icon: Instagram, href: 'https://www.instagram.com/' }
-    ].map((social, index) => (
-      <motion.a
-        key={index}
-        href={social.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        whileHover={{ scale: 1.2 }}
-        className="p-2 rounded-full hover:bg-sky-500/20 hover:text-sky-400 transition-all"
-      >
-        <social.icon className="w-5 h-5" />
-      </motion.a>
-    ))}
+
+  {/* Kolom 3: Follow Us */}
+  <div className="space-y-4 text-left md:text-right md:ml-auto order-last md:order-none">
+    <h4 className="text-lg font-semibold mb-2 text-white">Follow Us</h4>
+    <div className="flex justify-start md:justify-end space-x-4">
+      {[
+        { icon: Facebook, href: 'https://www.facebook.com/' },
+        { icon: Twitter, href: 'https://twitter.com/' },
+        { icon: Linkedin, href: 'https://id.linkedin.com/in/' },
+        { icon: Instagram, href: 'https://www.instagram.com/' }
+      ].map((social, index) => (
+        <motion.a
+          key={index}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.2 }}
+          className="p-2 rounded-full hover:bg-sky-500/20 hover:text-sky-400 transition-all"
+        >
+          <social.icon className="w-5 h-5" />
+        </motion.a>
+      ))}
+    </div>
   </div>
 </div>
 
 
+
         </div>
-      </div>
+      
 
       {/* Footer Copyright */}
       <div className="bg-gray-800 pt-4 pb-4">

@@ -4,7 +4,7 @@ const Partner: React.FC = ({ partnerRef }: any) => {
   return (
     <main id="partner" ref={partnerRef} className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <h1 className="text-2xl md:text-3xl font-bold mb-10 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+        <h1 className="text-2xl md:text-3xl font-poppins font-bold mb-10 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
           Our Partners
         </h1>
       </div>

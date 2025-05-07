@@ -38,7 +38,7 @@ const CyberSecurity = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 mt-6"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+          <h2 className="text-4xl font-poppins font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
             Cyber Security Services
           </h2>
           <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
@@ -135,7 +135,8 @@ const CyberSecurity = () => {
           className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-primary text-white hover:bg-primary/90 transition-all text-sm font-semibold shadow-lg"
         >
           <MessageCircle className="w-5 h-5" />
-          <span>Hubungi Kami untuk Konsultasi </span>
+          <span>
+          Contact Us for a Consultation </span>
         </a>
       </div>
     </section>

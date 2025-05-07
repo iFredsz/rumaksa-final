@@ -43,7 +43,7 @@ const DigitalBusiness = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-4">
+          <h2 className="text-3xl md:text-4xl font-poppins font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-4">
             Digital Business Services
           </h2>
           <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
@@ -143,7 +143,8 @@ const DigitalBusiness = () => {
   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white hover:bg-primary/90 transition-all text-sm font-semibold shadow-lg"
 >
   <MessageCircle className="w-4 h-4" />
-  Hubungi Kami untuk Konsultasi
+  
+Contact Us for a Consultation
 </a>
         </div>
       </div>

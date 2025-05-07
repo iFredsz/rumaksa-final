@@ -45,7 +45,7 @@ const OrganizeStructure: React.FC = () => {
   return (
     <section className="py-16 bg-gray-50 rounded-xl">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-4xl font-extrabold text-center text-primary mb-12">
+        <h2 className="text-4xl font-poppins font-bold text-center text-primary mb-12">
           Organizational Structure
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

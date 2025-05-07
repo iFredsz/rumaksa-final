@@ -112,7 +112,7 @@ const Blog = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-2"
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-10 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+          <h2 className="text-2xl md:text-3xl font-poppins font-bold mb-10 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
             Latest Insights
           </h2>
           <p className="text-description max-w-2xl mx-auto mb-4">

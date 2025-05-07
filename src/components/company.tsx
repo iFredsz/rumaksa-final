@@ -9,7 +9,7 @@ const CompanyProfile = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h2 className="text-3xl font-bold text-primary mb-4">Mengenai PT Rumah Karya Semesta</h2>
+        <h2 className="text-3xl font-poppins font-bold text-primary mb-4">Mengenai PT Rumah Karya Semesta</h2>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
           PT Rumah Karya Semesta (RUMAKSA) adalah perusahaan yang bergerak dalam bidang solusi digital, keamanan siber, dan teknologi multimedia. Didirikan untuk menjembatani kebutuhan jasa digital kreatif dan teknis di Indonesia. 
           RUMAKSA berperan sebagai platform penghubung antara talenta mahasiswa dan kebutuhan industri digital modern.

@@ -21,11 +21,12 @@ const Multimedia = () => {
   ];
 
   const benefits = [
-    'Kreatif dan responsif',
-    'Dikerjakan oleh tim berpengalaman',
-    'Terintegrasi dengan strategi digital',
-    'Visual yang memikat dan profesional',
+    'Creative and responsive',
+    'Handled by experienced team',
+    'Integrated with digital strategy',
+    'Captivating and professional visuals',
   ];
+  
 
   return (
     <section
@@ -45,11 +46,11 @@ const Multimedia = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-14"
         >
-          <h2 className="text-4xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+          <h2 className="text-4xl font-poppins font-bold  mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
             Multimedia Services
           </h2>
           <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-            Inovasi multimedia yang membantu merek Anda menonjol secara visual dan digital.
+          Multimedia innovations that help your brand stand out visually and digitally.
           </p>
         </motion.div>
 
@@ -76,26 +77,27 @@ const Multimedia = () => {
 
         {/* Benefits Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mt-16 text-center"
-        >
-          <h3 className="text-2xl font-bold mb-4 text-primary">Kenapa Memilih Kami?</h3>
-          <ul className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto text-foreground/80">
-            {benefits.map((benefit, i) => (
-              <motion.li
-                key={i}
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ delay: i * 0.2 }}
-                className="bg-primary/10 px-4 py-2 rounded-full text-sm shadow-sm"
-              >
-                {benefit}
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  className="mt-16 text-center"
+>
+  <h3 className="text-2xl font-bold mb-4 text-primary">Why Choose Us?</h3>
+  <ul className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto text-foreground/80">
+    {benefits.map((benefit, i) => (
+      <motion.li
+        key={i}
+        initial={{ scale: 0.9, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        transition={{ delay: i * 0.2 }}
+        className="bg-primary/10 px-4 py-2 rounded-full text-sm shadow-sm"
+      >
+        {benefit}
+      </motion.li>
+    ))}
+  </ul>
+</motion.div>
+
 
         {/* CTA Button */}
         <motion.div
@@ -111,7 +113,8 @@ const Multimedia = () => {
   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white hover:bg-primary/90 transition-all text-sm font-semibold shadow-lg"
 >
   <MessageCircle className="w-4 h-4" />
-  Hubungi Kami untuk Konsultasi 
+  
+Contact Us for a Consultation
 </a>
         </motion.div>
       </div>

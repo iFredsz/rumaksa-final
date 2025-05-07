@@ -4,7 +4,7 @@ import React from 'react';
 const VisionMission: React.FC = () => {
   return (
     <div className="p-8 bg-gradient-to-r from-accent to-primary rounded-lg shadow-xl max-w-4xl mx-auto mt-16 mb-8">
-      <h2 className="text-3xl font-bold text-center text-white mb-6">
+      <h2 className="text-3xl font-poppins font-bold text-center text-white mb-6">
         Our Vision & Mission
       </h2>
       <div className="bg-white p-6 rounded-lg shadow-lg">
