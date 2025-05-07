@@ -6,9 +6,18 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const images = [
-    "https://www.qiscus.com/id/wp-content/uploads/sites/2/2022/04/Kumpulan-kata-kata-promosi.png", 
-    "https://img.freepik.com/free-vector/glitched-cyber-monday-effect-sales_52683-46757.jpg?semt=ais_hybrid&w=740", 
-    "https://storage.googleapis.com/fastwork-static/5b92d5a6-8239-4f67-9deb-1bdcad4c2b65.jpg",
+    {
+      src: "https://www.qiscus.com/id/wp-content/uploads/sites/2/2022/04/Kumpulan-kata-kata-promosi.png",
+      path: "/services/multimedia",
+    },
+    {
+      src: "https://img.freepik.com/free-vector/glitched-cyber-monday-effect-sales_52683-46757.jpg?semt=ais_hybrid&w=740",
+      path: "/services/cyber-security",
+    },
+    {
+      src: "https://storage.googleapis.com/fastwork-static/5b92d5a6-8239-4f67-9deb-1bdcad4c2b65.jpg",
+      path: "/services/digital-business",
+    },
   ];
 
   useEffect(() => {
@@ -22,76 +31,77 @@ const Hero = () => {
     <>
       {/* HERO Section */}
       <section
-  id="hero"
-  className="relative min-h-screen flex items-center bg-background overflow-hidden pt-20"
->
-  {/* Decorative Top Bar */}
-  <div className="absolute top-0 left-0 w-full h-[120px] bg-yellow-400 rounded-b-[60px] z-0"></div>
-
-  <div className="container mx-auto px-4 relative z-10">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-12 mt-10"> {/* Tambahkan mt-10 di sini */}
-      {/* Left: Text Content */}
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-left"
+        id="hero"
+        className="relative min-h-screen flex items-center bg-background overflow-hidden pt-20"
       >
-        <h1 className="text-4xl md:text-5xl font-bold font-poppins leading-tight text-primary mb-4">
-          SECURE YOUR DIGITAL FUTURE
-        </h1>
-        <p className="text-base md:text-lg font-poppins mb-6 text-yellow-600">
-          Leading the Way in Secure, Smart, and Creative Digital Solutions
-        </p>
-      </motion.div>
+        {/* Decorative Top Bar */}
+        <div className="absolute top-0 left-0 w-full h-[120px] bg-yellow-400 rounded-b-[60px] z-0"></div>
 
-      {/* Right: Image Carousel */}
-      <motion.div
-  initial={{ opacity: 0, x: 30 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ delay: 0.3 }}
-  className="flex justify-center md:flex-col items-center"
->
-
-<div className="relative w-full max-w-[650px] h-[200px] md:h-[350px] overflow-hidden rounded-xl">
-
-          <motion.div
-            className="flex w-full h-full"
-            style={{
-              transform: `translateX(-${currentSlide * 100}%)`,
-              transition: "transform 0.5s ease",
-            }}
-          >
-            {images.map((image, index) => (
-              <div key={index} className="flex-shrink-0 w-full h-full">
-                <img
-                  src={image}
-                  alt={`Slide ${index}`}
-                  className="w-full h-full object-cover rounded-xl"
-                />
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Dots */}
-        <div className="mt-4 flex space-x-3">
-          {images.map((_, index) => (
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-12 mt-10">
+            {/* Left: Text Content */}
             <motion.div
-              key={index}
-              className={`w-3 h-3 rounded-full ${
-                currentSlide === index ? "bg-yellow-500" : "bg-gray-400"
-              } cursor-pointer`}
-              onClick={() => setCurrentSlide(index)}
-              whileHover={{ scale: 1.2 }}
-              transition={{ duration: 0.2 }}
-            />
-          ))}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-left"
+            >
+              <h1 className="text-4xl md:text-5xl font-bold font-poppins leading-tight text-primary mb-4">
+                SECURE YOUR DIGITAL FUTURE
+              </h1>
+              <p className="text-base md:text-lg font-poppins mb-6 text-yellow-600">
+                Leading the Way in Secure, Smart, and Creative Digital Solutions
+              </p>
+            </motion.div>
+
+            {/* Right: Image Carousel */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex justify-center md:flex-col items-center"
+            >
+              <div className="relative w-full max-w-[650px] h-[200px] md:h-[350px] overflow-hidden rounded-xl">
+                <motion.div
+                  className="flex w-full h-full"
+                  style={{
+                    transform: `translateX(-${currentSlide * 100}%)`,
+                    transition: "transform 0.5s ease",
+                  }}
+                >
+                  {images.map((image, index) => (
+                    <div key={index} className="flex-shrink-0 w-full h-full">
+                      {/* Link wrapping the image */}
+                      <Link to={image.path} className="w-full h-full block">
+                        <img
+                          src={image.src}
+                          alt={`Slide ${index}`}
+                          className="w-full h-full object-cover rounded-xl"
+                        />
+                      </Link>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Dots */}
+              <div className="mt-4 flex space-x-3">
+                {images.map((_, index) => (
+                  <motion.div
+                    key={index}
+                    className={`w-3 h-3 rounded-full ${
+                      currentSlide === index ? "bg-yellow-500" : "bg-gray-400"
+                    } cursor-pointer`}
+                    onClick={() => setCurrentSlide(index)}
+                    whileHover={{ scale: 1.2 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </motion.div>
-    </div>
-  </div>
-</section>
+      </section>
 
 
 {/* What Our Clients Say */}
