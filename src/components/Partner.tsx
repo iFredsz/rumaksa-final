@@ -14,7 +14,7 @@ const Partner: React.FC = ({ partnerRef }: any) => {
         {/* Partner 1 */}
         <div className="rounded-lg overflow-hidden shadow-md flex items-center justify-center h-32 md:h-40 bg-accent p-4">
           <img
-            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjh8apjFI_fYfXpeRnil_74emumzrDOxUgXFeHY7kxxyz-QP61JH6FfR7Nox9amqQlxJjG4-GFcBUGGuPCflFGGFKegZ8mxq6WKHp8r3Tt-AdCK-D6UXZhucdeypBoY8VbW0kluQY1W2AiJhZ5ET_R8sM6C9i_A7SlwKQsryydc6tyTA-a9g_5Hwg-_/s2953/Logo%20Djarum_logocorelCOM.png"
+            src="https://media.istockphoto.com/id/1477024718/id/vektor/huruf-j-ikon-dengan-latar-belakang-biru-desain-datar-dengan-bayangan-panjang.jpg?s=612x612&w=0&k=20&c=M_L_rCLHA-rQGw_JgHC7xAU2-2Af7T5aj6pdESEIaNk="
             alt="Partner 1"
             className="object-contain max-h-full w-full"
           />
@@ -23,7 +23,7 @@ const Partner: React.FC = ({ partnerRef }: any) => {
         {/* Partner 2 */}
         <div className="rounded-lg overflow-hidden shadow-md flex items-center justify-center h-32 md:h-40 bg-primary p-4">
           <img
-            src="https://jasalogocepat.com/wp-content/uploads/2023/09/logo-bumn-tanpa-background-png-5-jasalogocepat-768x204.png"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYS9YH3nmtxsKOQDMIXXsftNxSjY_gcDK0AYO2YfxrsxrBPuF5d7-Kw__XmhbdISkYWow&usqp=CAU"
             alt="Partner 2"
             className="object-contain max-h-full w-full"
           />
@@ -32,7 +32,7 @@ const Partner: React.FC = ({ partnerRef }: any) => {
         {/* Partner 3 */}
         <div className="rounded-lg overflow-hidden shadow-md flex items-center justify-center h-32 md:h-40 bg-accent p-4">
           <img
-            src="https://cdn.pixabay.com/photo/2022/08/22/03/34/logo-7402631_640.png"
+            src="https://media.istockphoto.com/id/1468451190/id/vektor/huruf-u-ikon-dengan-latar-belakang-biru-desain-datar-dengan-bayangan-panjang.jpg?s=170667a&w=0&k=20&c=u5my0YS919ZEBzJSsXEz0PnEj2RfjrhOhlJSs8EiqcA="
             alt="Partner 3"
             className="object-contain max-h-full w-full"
           />
