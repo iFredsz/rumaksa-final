@@ -8,11 +8,11 @@ const Hero = () => {
   const images = [
     {
       src: "https://www.qiscus.com/id/wp-content/uploads/sites/2/2022/04/Kumpulan-kata-kata-promosi.png",
-      path: "/services/multimedia",
+      path: "/courses",
     },
     {
       src: "https://img.freepik.com/free-vector/glitched-cyber-monday-effect-sales_52683-46757.jpg?semt=ais_hybrid&w=740",
-      path: "/services/cyber-security",
+      path: "/Courses",
     },
     {
       src: "https://storage.googleapis.com/fastwork-static/5b92d5a6-8239-4f67-9deb-1bdcad4c2b65.jpg",
