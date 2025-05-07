@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Users, Globe, Lock, Headphones, ShieldCheck, Megaphone, Image } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -132,32 +133,41 @@ const Hero = () => {
     <h2 className="text-3xl font-bold font-poppins mb-10 text-primary">Our Core Services</h2>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       {/* Cybersecurity */}
-      <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-        <div className="flex justify-center mb-4">
-          <ShieldCheck className="h-10 w-10 text-yellow-500" />
+      <Link to="/services/cyber-security" className="block">
+        <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <div className="flex justify-center mb-4">
+            <ShieldCheck className="h-10 w-10 text-yellow-500" />
+          </div>
+          <h3 className="text-xl font-bold mb-2 text-primary">Cybersecurity</h3>
+          <p className="text-gray-600">Protect your systems and data with our secure and up-to-date security services.</p>
         </div>
-        <h3 className="text-xl font-bold mb-2 text-primary">Cybersecurity</h3>
-        <p className="text-gray-600">Protect your systems and data with our secure and up-to-date security services.</p>
-      </div>
-      {/* Digital Marketing */}
-      <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-        <div className="flex justify-center mb-4">
-          <Megaphone className="h-10 w-10 text-yellow-500" />
+      </Link>
+
+      {/* Digital Business */}
+      <Link to="/services/digital-business" className="block">
+        <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <div className="flex justify-center mb-4">
+            <Megaphone className="h-10 w-10 text-yellow-500" />
+          </div>
+          <h3 className="text-xl font-bold mb-2 text-primary">Digital Marketing</h3>
+          <p className="text-gray-600">Reach your audience more effectively with data-driven digital campaigns.</p>
         </div>
-        <h3 className="text-xl font-bold mb-2 text-primary">Digital Marketing</h3>
-        <p className="text-gray-600">Reach your audience more effectively with data-driven digital campaigns.</p>
-      </div>
-      {/* Multimedia Technology */}
-      <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-        <div className="flex justify-center mb-4">
-          <Image className="h-10 w-10 text-yellow-500" />
+      </Link>
+
+      {/* Multimedia */}
+      <Link to="/services/multimedia" className="block">
+        <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <div className="flex justify-center mb-4">
+            <Image className="h-10 w-10 text-yellow-500" />
+          </div>
+          <h3 className="text-xl font-bold mb-2 text-primary">Multimedia</h3>
+          <p className="text-gray-600">Create stunning visuals and creative content for your brand or business.</p>
         </div>
-        <h3 className="text-xl font-bold mb-2 text-primary">Multimedia</h3>
-        <p className="text-gray-600">Create stunning visuals and creative content for your brand or business.</p>
-      </div>
+      </Link>
     </div>
   </div>
 </section>
+
 
 <section className="py-16 bg-yellow-400 text-white">
   <div className="container mx-auto text-center px-4">
