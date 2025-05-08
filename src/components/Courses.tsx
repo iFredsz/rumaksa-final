@@ -20,7 +20,7 @@ const Courses: React.FC = () => {
   }, []);
 
   return (
-    <section id="courses" className="py-16 bg-white dark:bg-gray-900">
+    <section id="courses" className="py-16 bg-background dark:bg-gray-900">
       <div className="container mx-auto px-4">
       <h2 className="text-2xl md:text-3xl font-poppins font-bold mb-2 bg-clip-text text-center text-transparent bg-gradient-to-r from-primary to-accent">
             Our Courses

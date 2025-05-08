@@ -49,7 +49,7 @@ const Hero = () => {
               <h1 className="text-4xl md:text-5xl font-bold font-poppins leading-tight text-primary mb-4">
                 SECURE YOUR DIGITAL FUTURE
               </h1>
-              <p className="text-base md:text-lg font-poppins mb-6 text-yellow-600">
+              <p className="text-base md:text-lg font-poppins mb-6 text-primary">
                 Leading the Way in Secure, Smart, and Creative Digital Solutions
               </p>
             </motion.div>
@@ -105,7 +105,7 @@ const Hero = () => {
 
 
 {/* What Our Clients Say */}
-<section className="py-16 bg-white text-center">
+<section className="py-16 bg-background text-center">
   <div className="container mx-auto px-4">
     <h2 className="text-3xl font-bold font-poppins text-primary mb-12">
       What Our Clients Say
@@ -138,7 +138,7 @@ const Hero = () => {
 
 
 
-<section id="services" className="py-16 bg-gray-50">
+<section id="services" className="py-16 bg-background">
   <div className="container mx-auto text-center px-4">
     <h2 className="text-3xl font-bold font-poppins mb-10 text-primary">Our Core Services</h2>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

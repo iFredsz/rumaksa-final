@@ -3,7 +3,7 @@ import { FaBuilding, FaGlobeAsia, FaCogs } from "react-icons/fa";
 
 const CompanyProfile = () => {
   return (
-    <section className="py-16 px-4 md:px-20 bg-white text-gray-800">
+    <section className="py-16 px-4 md:px-20 bg-background text-gray-800">
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, y: -20 }}
