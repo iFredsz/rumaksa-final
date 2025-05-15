@@ -46,7 +46,7 @@ const CompanyProfile = () => {
           <FaCogs className="text-4xl text-primary mx-auto mb-4" />
           <h3 className="text-xl font-semibold mb-2">Inovasi Berkelanjutan</h3>
           <p className="text-sm text-gray-700">
-            Mendorong inovasi dalam teknologi dan kreativitas melalui SDLC dan pendekatan berbasis solusi.
+            Mendorong inovasi dalam teknologi dan kreativitas melalui pendekatan berbasis solusi.
           </p>
         </motion.div>
       </div>

@@ -36,6 +36,8 @@ const CyberSecurity = React.lazy(() => import('./components/CyberSecurity'));
 const DigitalBusiness = React.lazy(() => import('./components/DigitalBusiness'));
 const Multimedia = React.lazy(() => import('./components/Multimedia'));
 
+// New edit hero content page
+const EditHeroContent = React.lazy(() => import('./components/EditHeroContent'));
 
 const App: React.FC = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean>(() => {
@@ -55,18 +57,25 @@ const App: React.FC = (): JSX.Element => {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300 flex flex-col">
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
-      <Suspense fallback={null}>
+      <Suspense
+  fallback={
+    <div className="flex items-center justify-center py-20">
+      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  }
+>
 
         <Header loggedIn={loggedIn} />
 
         <Routes>
-          {/* Auth */}
+          {/* Auth routes */}
           <Route path="/admin" element={loggedIn ? <Admin onLogout={setLoggedIn} /> : <Navigate to="/login" />} />
           <Route path="/editor" element={<Editor />} />
           <Route path="/courses/manage" element={<AddEditCourse />} />
+          <Route path="/hero/edit" element={<EditHeroContent />} />
           <Route path="/login" element={!loggedIn ? <Login onLogin={setLoggedIn} /> : <Navigate to="/" />} />
 
-          {/* Public */}
+          {/* Public routes */}
           <Route path="/" element={<Hero />} />
           <Route path="/home" element={<Hero />} />
           <Route path="/about" element={<About />} />
