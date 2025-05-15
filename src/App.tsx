@@ -13,7 +13,7 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 const BlogDetail = React.lazy(() => import('./components/BlogDetail'));
 const Header = React.lazy(() => import('./components/Header'));
 const Hero = React.lazy(() => import('./components/Hero'));
-const About = React.lazy(() => import('./components/About'));
+// const About = React.lazy(() => import('./components/About'));
 const Services = React.lazy(() => import('./components/Services'));
 const Blog = React.lazy(() => import('./components/Blog'));
 const Contact = React.lazy(() => import('./components/Contact'));
@@ -78,7 +78,7 @@ const App: React.FC = (): JSX.Element => {
           {/* Public routes */}
           <Route path="/" element={<Hero />} />
           <Route path="/home" element={<Hero />} />
-          <Route path="/about" element={<About />} />
+          {/* <Route path="/about" element={<About />} /> */}
           <Route path="/services" element={<Services />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/partner" element={<Partner />} />
