@@ -85,7 +85,7 @@ const Contact = () => {
             className="space-y-8"
           >
             <div className="space-y-6">
-              <h3 className="text-xl font-bold text-[var(--accent)]">Contact Information</h3>
+              <h3 className="text-xl font-bold text-primary">Contact Information</h3>
               <div className="space-y-2">
                 {[
                   { icon: Phone, text: '+62 856-4016-7388' },
@@ -101,7 +101,7 @@ const Contact = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-[var(--accent)]">Office Hours</h3>
+              <h3 className="text-xl font-bold text-primary">Office Hours</h3>
               <div className="text-base text-primary">
                 <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
                 <p>Saturday: 10:00 AM - 2:00 PM</p>
