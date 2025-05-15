@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   Routes,
@@ -56,15 +57,17 @@ const App: React.FC = (): JSX.Element => {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300 flex flex-col">
+      {/* Tambahkan dua toast ini */}
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
-      <Suspense
-  fallback={
-    <div className="flex items-center justify-center py-20">
-      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-    </div>
-  }
->
+      <Toaster position="top-right" reverseOrder={false} />
 
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center py-20">
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        }
+      >
         <Header loggedIn={loggedIn} />
 
         <Routes>
