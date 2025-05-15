@@ -103,7 +103,7 @@ body {
   }
 
   .icon-color {
-    color: var(--accent);
+    color: var(--foreground);
   }
 
   .text-description {
