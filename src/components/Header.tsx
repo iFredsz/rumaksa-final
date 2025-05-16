@@ -134,7 +134,7 @@ const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
               Hi, Admin
             </button>
           ) : (
-            <span className="font-sans">Hi there!</span>
+            <span className="font-sans"></span>
           )}
         </motion.div>
 
