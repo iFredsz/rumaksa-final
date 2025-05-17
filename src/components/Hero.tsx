@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Users, Globe, Lock, Headphones, ShieldCheck, Megaphone, Image } from "lucide-react";
+import { Users, Globe, Lock, Headphones } from "lucide-react";
 import { Link } from "react-router-dom";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from '../firebase'; // Pastikan ini mengarah ke konfigurasi Firebase-mu
@@ -13,6 +13,8 @@ interface Slide {
 interface Testimonial {
   message: string;
   name: string;
+  photo: string;
+  rating : number;
   role: string;
 }
 
@@ -117,67 +119,86 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 bg-background text-center">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold font-poppins text-primary mb-12">
-            What Our Clients Say
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-yellow-100 p-6 rounded-xl shadow-md">
-                <p className="text-gray-700 italic mb-4">"{t.message}"</p>
-                <h4 className="font-semibold text-primary">{t.name}</h4>
-                <span className="text-sm text-gray-500">{t.role}</span>
-              </div>
+{/* Testimonials */}
+<section className="py-16 bg-background text-center">
+  <div className="container mx-auto px-4">
+    <h2 className="text-3xl font-bold font-poppins text-primary mb-12">
+      What Our Clients Say
+    </h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonials.map((t, i) => (
+        <div key={i} className="bg-yellow-100 p-6 rounded-xl shadow-md">
+          <img
+            src={t.photo}
+            alt={t.name}
+            className="w-16 h-16 rounded-full mx-auto mb-4 object-cover"
+          />
+          <p className="text-gray-700 italic mb-4">"{t.message}"</p>
+          <div className="flex justify-center mb-2 text-yellow-400">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <svg
+                key={index}
+                xmlns="http://www.w3.org/2000/svg"
+                fill={index < t.rating ? "currentColor" : "none"}
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l2.003 6.145h6.462c.969 0 1.371 1.24.588 1.81l-5.234 3.805 2.003 6.145c.3.921-.755 1.688-1.539 1.118l-5.233-3.804-5.233 3.804c-.783.57-1.838-.197-1.539-1.118l2.003-6.145-5.234-3.805c-.783-.57-.38-1.81.588-1.81h6.462l2.003-6.145z"
+                />
+              </svg>
             ))}
           </div>
+          <h4 className="font-semibold text-primary">{t.name}</h4>
+          <span className="text-sm text-gray-500">{t.role}</span>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
-      {/* Services */}
-      <section id="services" className="py-16 bg-background">
-        <div className="container mx-auto text-center px-4">
-          <h2 className="text-3xl font-bold font-poppins mb-10 text-primary">Our Core Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link to="/services/cyber-security" className="block">
-              <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                <div className="flex justify-center mb-4">
-                  <ShieldCheck className="h-10 w-10 text-yellow-500" />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-primary">Cybersecurity</h3>
-                <p className="text-gray-600">
-                  Protect your systems and data with our secure and up-to-date security services.
-                </p>
-              </div>
-            </Link>
-
-            <Link to="/services/digital-business" className="block">
-              <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                <div className="flex justify-center mb-4">
-                  <Megaphone className="h-10 w-10 text-yellow-500" />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-primary">Digital Marketing</h3>
-                <p className="text-gray-600">
-                  Reach your audience more effectively with data-driven digital campaigns.
-                </p>
-              </div>
-            </Link>
-
-            <Link to="/services/multimedia" className="block">
-              <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                <div className="flex justify-center mb-4">
-                  <Image className="h-10 w-10 text-yellow-500" />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-primary">Multimedia</h3>
-                <p className="text-gray-600">
-                  Create stunning visuals and creative content for your brand or business.
-                </p>
-              </div>
-            </Link>
-          </div>
+{/* Services */}
+<section id="services" className="py-16 bg-background">
+  <div className="container mx-auto text-center px-4">
+    <h2 className="text-3xl font-bold font-poppins mb-10 text-primary">Our Core Services</h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <Link to="/services/cyber-security" className="block">
+        <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <img src="https://www.linknet.id/files/photos/shares/article/cyber%20security.jpg" alt="Cybersecurity" className="w-full h-40 object-cover rounded-lg mb-4" />
+          <h3 className="text-xl font-bold mb-2 text-primary">Cybersecurity</h3>
+          <p className="text-gray-600">
+            Protect your systems and data with our secure and up-to-date security services.
+          </p>
         </div>
-      </section>
+      </Link>
+
+      <Link to="/services/digital-business" className="block">
+        <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <img src="https://inovasika.id/artikel/wp-content/uploads/2021/11/digital-marketing-new-startup-project-online-search-engine-optimisation-scaled.jpg" alt="Digital Marketing" className="w-full h-40 object-cover rounded-lg mb-4" />
+          <h3 className="text-xl font-bold mb-2 text-primary">Digital Marketing</h3>
+          <p className="text-gray-600">
+            Reach your audience more effectively with data-driven digital campaigns.
+          </p>
+        </div>
+      </Link>
+
+      <Link to="/services/multimedia" className="block">
+        <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <img src="https://ilmukomunikasi.uma.ac.id/wp-content/uploads/2023/08/multimedia-on-a-businessman-hand.png" alt="Multimedia" className="w-full h-40 object-cover rounded-lg mb-4" />
+          <h3 className="text-xl font-bold mb-2 text-primary">Multimedia</h3>
+          <p className="text-gray-600">
+            Create stunning visuals and creative content for your brand or business.
+          </p>
+        </div>
+      </Link>
+    </div>
+  </div>
+</section>
+
 
       {/* Why Choose Us */}
       <section className="py-16 bg-yellow-400 text-white">

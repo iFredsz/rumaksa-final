@@ -153,11 +153,11 @@ const AddEditCourse: React.FC = () => {
   };
 
   return (
-    <section className="py-16 bg-white dark:bg-gray-900">
+    <section className="py-16  dark:bg-gray-900">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Daftar Courses */}
         <div>
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Existing Courses</h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Courses Setting</h2>
           <div className="space-y-4">
             {courses.map((course) => (
               <div key={course.id} className="border rounded-lg p-4 shadow-sm bg-white dark:bg-gray-800">

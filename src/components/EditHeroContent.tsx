@@ -21,7 +21,10 @@ type Testimonial = {
   message: string;
   name: string;
   role: string;
+  photo: string;
+  rating: number | null;
 };
+
 
 const EditHeroContent = () => {
   const [slides, setSlides] = useState<Slide[]>([]);
@@ -37,12 +40,14 @@ const EditHeroContent = () => {
   const [deletingTestimonials, setDeletingTestimonials] = useState<Record<string, boolean>>({});
 
   const [newSlide, setNewSlide] = useState<Slide>({ id: "", src: "", path: "" });
-  const [newTestimonial, setNewTestimonial] = useState<Testimonial>({
-    id: "",
-    message: "",
-    name: "",
-    role: "",
-  });
+const [newTestimonial, setNewTestimonial] = useState<Testimonial>({
+  id: "",
+  message: "",
+  name: "",
+  role: "",
+  photo: "",
+  rating: null,
+});
 
   const fetchData = async () => {
     setLoading(true);
@@ -61,17 +66,20 @@ const EditHeroContent = () => {
         })
       );
 
-      setTestimonials(
-        testimonialsSnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            message: data.message ?? "",
-            name: data.name ?? "",
-            role: data.role ?? "",
-          };
-        })
-      );
+setTestimonials(
+  testimonialsSnapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      message: data.message ?? "",
+      name: data.name ?? "",
+      role: data.role ?? "",
+      photo: data.photo ?? "",
+      rating: data.rating ?? 5,
+    };
+  })
+);
+
 
       setEditingSlides({});
       setEditingTestimonials({});
@@ -92,11 +100,12 @@ const EditHeroContent = () => {
     );
   };
 
-  const handleTestimonialChange = (id: string, field: keyof Testimonial, value: string) => {
-    setTestimonials((prev) =>
-      prev.map((testi) => (testi.id === id ? { ...testi, [field]: value } : testi))
-    );
-  };
+const handleTestimonialChange = (id: string, field: keyof Testimonial, value: string | number | null) => {
+  setTestimonials((prev) =>
+    prev.map((testi) => (testi.id === id ? { ...testi, [field]: value } : testi))
+  );
+};
+
 
   const saveSlide = async (id: string) => {
     setSavingSlides((prev) => ({ ...prev, [id]: true }));
@@ -140,11 +149,14 @@ const EditHeroContent = () => {
       if (!testi) throw new Error("Testimonial tidak ditemukan");
 
       const testiRef = doc(db, "testimonials", id);
-      await updateDoc(testiRef, {
-        message: testi.message,
-        name: testi.name,
-        role: testi.role,
-      });
+await updateDoc(testiRef, {
+  message: testi.message,
+  name: testi.name,
+  role: testi.role,
+  photo: testi.photo,
+  rating: testi.rating,
+});
+
 
       setEditingTestimonials((prev) => ({ ...prev, [id]: false }));
       alert("Testimonial berhasil disimpan!");
@@ -186,26 +198,31 @@ const EditHeroContent = () => {
   };
 
   const addTestimonial = async () => {
-    if (!newTestimonial.role || !newTestimonial.name || !newTestimonial.role)
-      return alert("Isi semua field testimonial");
-    try {
-      const docRef = await addDoc(collection(db, "testimonials"), {
-        message: newTestimonial.message,
-        name: newTestimonial.name,
-        role: newTestimonial.role,
-      });
-      setTestimonials([...testimonials, { ...newTestimonial, id: docRef.id }]);
-      setNewTestimonial({ id: "", message: "", name: "", role: "" });
-      alert("Testimonial berhasil ditambahkan!");
-    } catch (error) {
-      console.error("Gagal menambahkan testimonial:", error);
-      alert("Gagal menambahkan testimonial!");
-    }
-  };
+  const { message, name, role, photo, rating } = newTestimonial;
+  if (!message || !name || !role || !photo || !rating)
+    return alert("Isi semua field testimonial");
+
+  try {
+    const docRef = await addDoc(collection(db, "testimonials"), {
+      message,
+      name,
+      role,
+      photo,
+      rating,
+    });
+    setTestimonials([...testimonials, { ...newTestimonial, id: docRef.id }]);
+    setNewTestimonial({ id: "", message: "", name: "", role: "", photo: "", rating: null });
+    alert("Testimonial berhasil ditambahkan!");
+  } catch (error) {
+    console.error("Gagal menambahkan testimonial:", error);
+    alert("Gagal menambahkan testimonial!");
+  }
+};
 
   return (
     <div className="container mx-auto px-4 py-10 pt-20">
-      <h1 className="text-3xl font-bold mb-6 text-primary">Edit Hero Content</h1>
+{/* Suggested code may be subject to a license. Learn more: ~LicenseLog:2922252263. */}
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Home Setting</h2>
 
       {/* SLIDES */}
       <div className="mb-10">
@@ -317,6 +334,28 @@ const EditHeroContent = () => {
             onChange={(e) => setNewTestimonial({ ...newTestimonial, role: e.target.value })}
             placeholder="Jabatan / Perusahaan"
           />
+          <input
+  className="border p-2 rounded"
+  value={newTestimonial.photo}
+  onChange={(e) => setNewTestimonial({ ...newTestimonial, photo: e.target.value })}
+  placeholder="URL Foto"
+/>
+<input
+  type="number"
+  min={1}
+  max={5}
+  className="border p-2 rounded"
+  value={newTestimonial.rating ?? ""}
+  onChange={(e) =>
+    setNewTestimonial({
+      ...newTestimonial,
+      rating: e.target.value ? Number(e.target.value) : null,
+    })
+  }
+  placeholder="Rating (1-5)"
+/>
+
+
           <button
             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 col-span-1 md:col-span-2"
             onClick={addTestimonial}
@@ -349,6 +388,29 @@ const EditHeroContent = () => {
                   onChange={(e) => handleTestimonialChange(testi.id, "role", e.target.value)}
                   disabled={!isEditing}
                 />
+                <input
+  className="w-full border p-2 rounded mb-2"
+  value={testi.photo}
+  onChange={(e) => handleTestimonialChange(testi.id, "photo", e.target.value)}
+  disabled={!isEditing}
+/>
+<input
+  type="number"
+  min={1}
+  max={5}
+  className="w-full border p-2 rounded mb-2"
+  value={testi.rating !== null && testi.rating !== undefined ? testi.rating : ""}
+  onChange={(e) =>
+    handleTestimonialChange(
+      testi.id,
+      "rating",
+      e.target.value !== "" ? Number(e.target.value) : null
+    )
+  }
+  disabled={!isEditing}
+/>
+
+
                 <div className="flex gap-2">
                   {!isEditing ? (
                     <button

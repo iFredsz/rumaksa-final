@@ -14,7 +14,6 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 const BlogDetail = React.lazy(() => import('./components/BlogDetail'));
 const Header = React.lazy(() => import('./components/Header'));
 const Hero = React.lazy(() => import('./components/Hero'));
-// const About = React.lazy(() => import('./components/About'));
 const Services = React.lazy(() => import('./components/Services'));
 const Blog = React.lazy(() => import('./components/Blog'));
 const Contact = React.lazy(() => import('./components/Contact'));
@@ -39,6 +38,7 @@ const Multimedia = React.lazy(() => import('./components/Multimedia'));
 
 // New edit hero content page
 const EditHeroContent = React.lazy(() => import('./components/EditHeroContent'));
+const AdminLayout = React.lazy(() => import('./components/AdminLayout'));
 
 const App: React.FC = (): JSX.Element => {
   const [loggedIn, setLoggedIn] = useState<boolean>(() => {
@@ -55,9 +55,16 @@ const App: React.FC = (): JSX.Element => {
     if (!loggedIn) localStorage.removeItem('isAdmin');
   }, [loggedIn]);
 
+  // Tambahkan fungsi logout
+const handleLogout = async () => {
+  localStorage.removeItem('isAdmin');
+  setLoggedIn(false);
+};
+
+
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300 flex flex-col">
-      {/* Tambahkan dua toast ini */}
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
       <Toaster position="top-right" reverseOrder={false} />
 
@@ -68,20 +75,24 @@ const App: React.FC = (): JSX.Element => {
           </div>
         }
       >
-        <Header loggedIn={loggedIn} />
-
+        <Header loggedIn={loggedIn} onLogout={handleLogout} />
         <Routes>
-          {/* Auth routes */}
-          <Route path="/admin" element={loggedIn ? <Admin onLogout={setLoggedIn} /> : <Navigate to="/login" />} />
-          <Route path="/editor" element={<Editor />} />
-          <Route path="/courses/manage" element={<AddEditCourse />} />
-          <Route path="/hero/edit" element={<EditHeroContent />} />
+          <Route
+ path="/admin"
+            element={loggedIn ? <AdminLayout  /> : <Navigate to="/login" />}
+          >
+            <Route index element={<Admin onLogout={handleLogout} />} /> {/* Index route for /admin */}
+            <Route path="courses" element={<AddEditCourse />} />
+            <Route path="editor" element={<Editor />} />
+            <Route path="hero" element={<EditHeroContent />} />
+          </Route>
+
+
           <Route path="/login" element={!loggedIn ? <Login onLogin={setLoggedIn} /> : <Navigate to="/" />} />
 
-          {/* Public routes */}
+          {/* Public Routes */}
           <Route path="/" element={<Hero />} />
           <Route path="/home" element={<Hero />} />
-          {/* <Route path="/about" element={<About />} /> */}
           <Route path="/services" element={<Services />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/partner" element={<Partner />} />

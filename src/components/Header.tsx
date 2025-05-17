@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import rumaksaLogo from '../assets/rumaksalogos.png';
-import { BsChevronDown, BsChevronUp } from 'react-icons/bs'; // Import ikon panah
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
 
 interface HeaderProps {
   loggedIn: boolean;
+  onLogout: () => Promise<void>;
 }
 
-const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
+const Header: React.FC<HeaderProps> = ({ loggedIn, onLogout }) => {
   const { pathname } = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -41,7 +42,6 @@ const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
   };
 
   const handleMenuItemClick = (path: string) => {
-    // Scroll ke atas setelah klik
     window.scrollTo(0, 0);
     navigate(path);
     setIsMenuOpen(false);
@@ -51,7 +51,6 @@ const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
   useEffect(() => {
     setIsMenuOpen(false);
     setOpenDropdown(null);
-    // Menangani scroll ke atas setelah navigasi menggunakan useEffect
     window.scrollTo(0, 0);
   }, [pathname]);
 
@@ -127,12 +126,25 @@ const Header: React.FC<HeaderProps> = ({ loggedIn }) => {
           className="px-3 py-1 rounded-full fixed top-4 text-xs md:text-base font-medium text-[var(--header-text)]"
         >
           {loggedIn ? (
-            <button
-              onClick={() => navigate(pathname === '/admin' ? '/' : '/admin')}
-              className="flex items-center focus:outline-none font-sans hover:bg-[var(--header-button-bg)] px-3 py-1 rounded-full cursor-pointer"
-            >
-              Hi, Admin
-            </button>
+            <div className="flex">
+              {/* Tombol Admin */}
+              <button
+                onClick={() => {
+                  navigate(pathname === '/admin' ? '/' : '/admin');
+                }}
+                className="flex items-center focus:outline-none font-sans hover:bg-[var(--header-button-bg)] px-3 py-1 rounded-full cursor-pointer"
+              >
+                Hi, Admin
+              </button>
+
+              {/* Tombol Logout */}
+              <button
+                onClick={onLogout}
+                className="flex items-center focus:outline-none font-sans hover:bg-[var(--header-button-bg)] px-3 py-1 rounded-full cursor-pointer ml-2"
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <span className="font-sans"></span>
           )}

@@ -68,7 +68,7 @@ const Admin: FC<AdminProps> = ({ onLogout }): ReactNode => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       const isLoggedIn = !!user;
       setLoggedIn(isLoggedIn);
-      if (!isLoggedIn) navigate('/login');
+      if (!isLoggedIn) navigate('/');
     });
     return () => unsubscribe();
   }, [auth, navigate]);
@@ -230,24 +230,8 @@ const Admin: FC<AdminProps> = ({ onLogout }): ReactNode => {
   return (
     <>
       <motion.div className="pt-20 px-4 md:px-10 pb-10">
-        <div className="mb-6 space-x-4">
-          <button
-            onClick={() => navigate('/courses/manage')}
-            className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded"
-          >
-            Manage Course
-          </button>
 
-          <button
-    onClick={() => navigate('/hero/edit')}
-    className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
-  >
-    Manage Hero
-  </button>
-
-        </div>
-
-        <h2 className="admin-title">Add/Edit Blog</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white admin-title">Blog Setting</h2>
         {/* Form Input */}
         <div className="grid md:grid-cols-3 gap-4 mb-4">
           <div>
